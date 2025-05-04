@@ -2,7 +2,6 @@ const usersModel = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// This function creates a new author (new user)
 const register = (req, res) => {
   const { userName, email, password, number, role } = req.body;
   const user = new usersModel({
@@ -37,7 +36,6 @@ const register = (req, res) => {
     });
 };
 
-// This function checks user login credentials
 const login = (req, res) => {
   const password = req.body.password;
   const email = req.body.email.toLowerCase();

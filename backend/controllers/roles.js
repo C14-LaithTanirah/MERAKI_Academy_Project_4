@@ -1,6 +1,5 @@
 const RoleModel = require("../models/roles");
 
-// This function creates new role
 const createRole = (req, res) => {
   const { role, permissions } = req.body;
   const newRole = new RoleModel({ role, permissions });

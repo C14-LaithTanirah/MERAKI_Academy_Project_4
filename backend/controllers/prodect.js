@@ -1,6 +1,5 @@
 const prodectModel = require("../models/prodect");
 
-// This function creates a new author (new user)
 const createProdect = (req, res) => {
   const { title, description, img, price, size } = req.body;
   const prodect = new prodectModel({
