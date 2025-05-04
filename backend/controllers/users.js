@@ -1,5 +1,6 @@
 const usersModel = require("../models/users");
 const cartModel = require("../models/cart");
+const favModel = require("../models/fav");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -22,7 +23,18 @@ const register = (req, res) => {
       cart
         .save()
         .then((result2) => {
-          console.log(result2);
+          console.log("Cart", result2);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      const fav = new favModel({
+        userId: result._id,
+      });
+      fav
+        .save()
+        .then((result3) => {
+          console.log("favorite", result3);
         })
         .catch((err) => {
           console.log(err.message);
