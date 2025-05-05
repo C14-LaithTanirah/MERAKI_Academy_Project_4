@@ -5,12 +5,13 @@ const {
   deletefav,
   updatefav,
 } = require("../controllers/fav");
+const authentication = require("../middleware/authentication");
 
-// define router
+
 const favRouter = express.Router();
-favRouter.post("/create", createfav);
-favRouter.get("/:id", getfavByUserId);
-favRouter.delete("/:id/delete", deletefav);
-favRouter.put("/:id/update", updatefav);
+favRouter.post("/create",authentication, createfav);
+favRouter.get("/:id",authentication, getfavByUserId);
+favRouter.delete("/:id/delete",authentication, deletefav);
+favRouter.put("/:id/update",authentication, updatefav);
 
 module.exports = favRouter;
