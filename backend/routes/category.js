@@ -3,6 +3,7 @@ const {
   createcategory,
   getAllcategory,
   deletecategory,
+  getCategoryById,
 } = require("../controllers/category");
 
 const authorization = require("../middleware/authorization");
@@ -13,14 +14,15 @@ const categoryRouter = express.Router();
 categoryRouter.post(
   "/create",
   authentication,
-  authorization("R"),
+  authorization("W"),
   createcategory
 );
 categoryRouter.get("/", authentication, authorization("R"), getAllcategory);
+categoryRouter.get("/:id", authentication, authorization("R"), getCategoryById);
 categoryRouter.delete(
   "/:id/delete",
   authentication,
-  authorization("R"),
+  authorization("D"),
   deletecategory
 );
 

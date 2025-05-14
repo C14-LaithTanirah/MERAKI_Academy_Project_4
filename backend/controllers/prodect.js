@@ -1,3 +1,4 @@
+const prodect = require("../models/prodect");
 const prodectModel = require("../models/prodect");
 
 const createProdect = (req, res) => {
@@ -35,6 +36,24 @@ const getAllProdects = (req, res) => {
       res.status(201).json({
         success: true,
         message: `All prodect`,
+        prodect: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+const getProdectByName = (req, res) => {
+  prodectModel
+    .find({ title: req.params.title })
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `prodect By ${req.params.title}`,
         author: result,
       });
     })
@@ -121,9 +140,10 @@ const deleteProdect = (req, res) => {
 };
 
 module.exports = {
-  getProdectById,
+  getProdectByName,
   getAllProdects,
   createProdect,
   updateProdect,
   deleteProdect,
+  getProdectById,
 };

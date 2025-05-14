@@ -13,7 +13,7 @@ const createcategory = (req, res) => {
       res.status(201).json({
         success: true,
         message: `category Created Successfully`,
-        author: result,
+        category: result,
       });
     })
     .catch((err) => {
@@ -32,7 +32,27 @@ const getAllcategory = (req, res) => {
       res.status(201).json({
         success: true,
         message: `All category`,
-        author: result,
+        category: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+
+const getCategoryById = (req, res) => {
+  categoryModel
+    .find({ _id: req.params.id })
+    .populate("categoryProdect")
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `category By ${req.params.id}`,
+        category: result,
       });
     })
     .catch((err) => {
@@ -73,4 +93,5 @@ module.exports = {
   createcategory,
   getAllcategory,
   deletecategory,
+  getCategoryById,
 };

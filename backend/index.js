@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use("/users", usersRouter);
 app.use("/role", rolesRouter);
-app.use("/prodect", prodectRouter);
+app.use("/product", prodectRouter);
 app.use("/category", categoryRouter);
 app.use("/cart", cartRouter);
 app.use("/fav", favRouter);

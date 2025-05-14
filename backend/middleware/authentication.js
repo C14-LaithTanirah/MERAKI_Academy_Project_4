@@ -13,13 +13,11 @@ const authentication = (req, res, next) => {
 
     jwt.verify(token, process.env.SECRET, (err, result) => {
       if (err) {
-        console.log("1");
         res.status(403).json({
           success: false,
           message: `The token is invalid or expired`,
         });
       } else {
-        console.log("2");
         req.token = result;
         next();
       }

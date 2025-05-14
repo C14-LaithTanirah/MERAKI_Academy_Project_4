@@ -5,13 +5,21 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
+  let permission = "";
   const { userName, email, password, number, role } = req.body;
+  if (role === "Custumer") {
+    permission = "681a3d17ce6270c42087318a";
+  } else if (role === "Provider") {
+    permission = "681a3d52ce6270c42087318c";
+  } else if (role === "Admin") {
+    permission = "6817a05c3016dea654e5f6ed";
+  }
   const user = new usersModel({
     userName,
     email,
     password,
     number,
-    role,
+    role: permission,
   });
 
   user

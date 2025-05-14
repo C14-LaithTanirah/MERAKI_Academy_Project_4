@@ -5,7 +5,6 @@ const createcart = (req, res) => {
   const cart = new cartModel({
     userId,
   });
-
   cart
     .save()
     .then((result) => {
@@ -27,6 +26,7 @@ const createcart = (req, res) => {
 const getCartByUserId = (req, res) => {
   cartModel
     .find({ userId: req.params.id })
+    .populate("cartProdects.id")
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -72,7 +72,7 @@ const updatecart = (req, res) => {
   cartModel
     .findOneAndUpdate(
       { userId: req.params.id },
-      { cartProdects: req.body.cartProdects },
+      { $push: { cartProdects: req.body.cartProdects } },
       { new: true }
     )
     .then((result) => {
