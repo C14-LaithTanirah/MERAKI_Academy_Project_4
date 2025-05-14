@@ -3,17 +3,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { categoryIdFun } from "../../redux/slices/categoryIdSlice";
 
-const Category = () => {
+const Category = ({ setNavbarToggel }) => {
   const token = localStorage.getItem("token");
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
-  const categoryId = useSelector((state) => {
-    return state.categoryIdReducer.categoryId;
-  });
-
-  const dispatch = useDispatch();
+  setNavbarToggel(true);
 
   useEffect(() => {
     axios
@@ -45,14 +40,6 @@ const Category = () => {
         <p className="lead" style={{ fontWeight: "bold" }}>
           Style meets simplicity
         </p>
-        <button
-          className="btn btn-dark px-4"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Shop Now
-        </button>
       </div>
       <div className="container py-4 text-large fw-bold">
         <div className="row">
@@ -87,7 +74,8 @@ const Category = () => {
                   <button
                     id={cat._id}
                     onClick={(e) => {
-                      dispatch(categoryIdFun(e.target.id));
+                      localStorage.setItem("categryId", e.target.id);
+                      navigate("/prodects");
                     }}
                     className="btn btn-light mt-2 slide-hover"
                   >

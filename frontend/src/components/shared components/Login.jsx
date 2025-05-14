@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { tokenFun } from "../../redux/slices/tokenSlice";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [value, setValue] = useState({});
@@ -11,9 +12,6 @@ const Login = () => {
   const [messageDesign, setMessageDesign] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => {
-    return state.tokenReducer.token;
-  });
 
   const loginButtonEvent = (e) => {
     axios
@@ -26,7 +24,11 @@ const Login = () => {
         setMessageDesign({ backgroundColor: "green", fontSize: "20px" });
         localStorage.setItem("token", res.data.token);
         dispatch(tokenFun(res.data.token));
-        navigate("/register");
+        if (jwtDecode(res.data.token).role.role == "customer") {
+          navigate("/category");
+        } else {
+          navigate("/adminDashboard");
+        }
       })
       .catch((e) => {
         console.log(e.message);
@@ -60,8 +62,8 @@ const Login = () => {
         <button className="button" onClick={loginButtonEvent}>
           Login
         </button>
-        <div style={{fontSize:"16px",fontWeight:"normal"}}>
-        Don’t have an account? <Link to={navigate("/register")}>Join</Link>
+        <div style={{ fontSize: "16px", fontWeight: "normal" }}>
+          Don’t have an account?<Link to={"/register"}>Join</Link>
         </div>
       </div>
     </div>

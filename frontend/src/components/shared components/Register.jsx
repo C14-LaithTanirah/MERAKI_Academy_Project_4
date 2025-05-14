@@ -90,8 +90,7 @@ const Register = () => {
               setPermission(e.target.value);
             }}
           >
-            <option selected> Custumer </option>
-            <option>Provider</option>
+            <option> Custumer </option>
             <option>Admin</option>
           </select>
         </div>

@@ -12,23 +12,22 @@ import Grid from "@mui/joy/Grid";
 import Box from "@mui/joy/Box";
 import CardActionArea from "@mui/material/CardActionArea";
 
-const Prodacts = ({ setNavbarToggel }) => {
+const SearchPage = ({ setNavbarToggel }) => {
   const token = localStorage.getItem("token");
   const [prodects, setProdects] = useState([]);
   const navigate = useNavigate();
-  const [categoryName, setCategoryName] = useState("");
-  const categoryId = localStorage.getItem("categryId");
+  const title = localStorage.getItem("search");
   setNavbarToggel(true);
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/category/${categoryId}`, {
+      .get(`http://localhost:5000/product/${title}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       })
       .then((reselt) => {
-        setProdects(reselt.data.category[0].categoryProdect);
-        setCategoryName(reselt.data.category[0].categoryName);
+        setProdects(reselt.data.author);
       })
       .catch((err) => {
         console.log(err.message);
@@ -46,7 +45,7 @@ const Prodacts = ({ setNavbarToggel }) => {
         }}
       >
         <h1 className="display-4" style={{ fontWeight: "bold" }}>
-          {categoryName}
+          {title}
         </h1>
       </div>
       <div className="py-4 fw-bold">
@@ -100,4 +99,4 @@ const Prodacts = ({ setNavbarToggel }) => {
   );
 };
 
-export default Prodacts;
+export default SearchPage;
